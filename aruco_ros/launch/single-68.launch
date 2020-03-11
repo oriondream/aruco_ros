@@ -1,0 +1,21 @@
+<launch>
+    <include file="$(find gscam)/v4l-vu.launch" />
+
+    <node name="rqt_image_view" pkg="rqt_image_view" type="rqt_image_view">
+        <param name="topic" value="/aruco_single/result" />
+    </node>
+
+    <node pkg="aruco_ros" type="single" name="aruco_single">
+        <remap from="/camera_info" to="/v4l/camera/camera_info" />
+        <remap from="/image" to="/v4l/camera/image_raw" />
+        <param name="image_is_rectified" value="True"/>
+        <param name="marker_size"        value="0.1"/>
+        <param name="marker_id"          value="68"/>
+        <param name="reference_frame"    value="world"/>   <!-- frame in which the marker pose will be refered -->
+        <param name="camera_frame"       value="v4l_frame"/>
+        <param name="marker_frame"       value="dismount_soldier" />
+        <param name="corner_refinement"  value="HARRIS" />
+    </node>
+
+</launch>
+
